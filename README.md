@@ -1,7 +1,12 @@
 # TFC Remote-backend Helper Functions
 
 ## STEPS:
-### 1. Set Required Environment Variables and create your TFC Client
+### 1. Install the Python Dependencies
+```
+pip3 install terrasnek
+```
+
+### 2. Set Required Environment Variables and create your TFC Client
 ```
 # NEW ORG
 TFE_TOKEN = os.getenv("TFE_TOKEN", None)
