@@ -6,17 +6,9 @@ import base64
 import json
 import subprocess
 
-TFE_TOKEN = os.getenv("TFE_TOKEN", None)
-TFE_URL = os.getenv("TFE_URL", None)
-TFE_ORG = os.getenv("TFE_ORG", None)
-
-api_new = TFC(TFE_TOKEN, url=TFE_URL)
-api_new.set_org(TFE_ORG)
-
-
 # Method for tainting resources when workspace_id is passed
-def taint_state_ws_id(workspace_id, taint_list):
-    current_version = api_new.state_versions.get_current(workspace_id)[
+def taint_state_ws_id(api, workspace_id, taint_list):
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -50,11 +42,11 @@ def taint_state_ws_id(workspace_id, taint_list):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "taint script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     os.remove('terraform.tfstate')
     os.remove('terraform.tfstate.backup')
@@ -63,10 +55,10 @@ def taint_state_ws_id(workspace_id, taint_list):
 
 
 # Method for tainting resources when workspace_name is passed
-def taint_state_ws_name(workspace_name, taint_list):
-    workspace_id = api_new.workspaces.show(workspace_name=workspace_name)['data']['id']
+def taint_state_ws_name(api, workspace_name, taint_list):
+    workspace_id = api.workspaces.show(workspace_name=workspace_name)['data']['id']
     
-    current_version = api_new.state_versions.get_current(workspace_id)[
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -100,11 +92,11 @@ def taint_state_ws_name(workspace_name, taint_list):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "taint script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     os.remove('terraform.tfstate')
     os.remove('terraform.tfstate.backup')
