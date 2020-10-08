@@ -6,17 +6,9 @@ import base64
 import json
 import subprocess
 
-TFE_TOKEN = os.getenv("TFE_TOKEN", None)
-TFE_URL = os.getenv("TFE_URL", None)
-TFE_ORG = os.getenv("TFE_ORG", None)
-
-api_new = TFC(TFE_TOKEN, url=TFE_URL)
-api_new.set_org(TFE_ORG)
-
-
 # Method for importing resources when workspace_id and single resource is passed
-def import_to_state_by_ws_id(workspace_id, resource_name, resource_id):
-    current_version = api_new.state_versions.get_current(workspace_id)[
+def import_to_state_by_ws_id(api, workspace_id, resource_name, resource_id):
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -52,11 +44,11 @@ def import_to_state_by_ws_id(workspace_id, resource_name, resource_id):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "import script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     subprocess.call(["mv", "backend.tf.commented", "backend.tf"])
     subprocess.call(["terraform", "init"])
@@ -68,10 +60,10 @@ def import_to_state_by_ws_id(workspace_id, resource_name, resource_id):
 
 
 # Method for importing resources when workspace_name and single resource is passed
-def import_to_state_by_ws_name(workspace_name, resource_name, resource_id):
-    workspace_id = api_new.workspaces.show(workspace_name=workspace_name)['data']['id']
+def import_to_state_by_ws_name(api, workspace_name, resource_name, resource_id):
+    workspace_id = api.workspaces.show(workspace_name=workspace_name)['data']['id']
     
-    current_version = api_new.state_versions.get_current(workspace_id)[
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -107,11 +99,11 @@ def import_to_state_by_ws_name(workspace_name, resource_name, resource_id):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "import script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     subprocess.call(["mv", "backend.tf.commented", "backend.tf"])
     subprocess.call(["terraform", "init"])
@@ -125,8 +117,8 @@ def import_to_state_by_ws_name(workspace_name, resource_name, resource_id):
 #### IMPORT LIST OF RESOURCES ####
 
 # Method for importing resources when workspace_id and import_list is passed
-def import_list_to_state_by_ws_id(workspace_id, import_list):
-    current_version = api_new.state_versions.get_current(workspace_id)[
+def import_list_to_state_by_ws_id(api, workspace_id, import_list):
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -163,11 +155,11 @@ def import_list_to_state_by_ws_id(workspace_id, import_list):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "import script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     subprocess.call(["mv", "backend.tf.commented", "backend.tf"])
     subprocess.call(["terraform", "init"])
@@ -179,10 +171,10 @@ def import_list_to_state_by_ws_id(workspace_id, import_list):
 
 
 # Method for importing resources when workspace_name and import_list is passed
-def import_list_to_state_by_ws_name(workspace_name, import_list):
-    workspace_id = api_new.workspaces.show(workspace_name=workspace_name)['data']['id']
+def import_list_to_state_by_ws_name(api, workspace_name, import_list):
+    workspace_id = api.workspaces.show(workspace_name=workspace_name)['data']['id']
     
-    current_version = api_new.state_versions.get_current(workspace_id)[
+    current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
     state_url = current_version['attributes']['hosted-state-download-url']
@@ -219,11 +211,11 @@ def import_list_to_state_by_ws_name(workspace_name, import_list):
     }
 
     # Migrate state to the new Workspace
-    api_new.workspaces.lock(workspace_id, {
+    api.workspaces.lock(workspace_id, {
                             "reason": "import script"})
-    api_new.state_versions.create(
+    api.state_versions.create(
         workspace_id, create_state_version_payload)
-    api_new.workspaces.unlock(workspace_id)
+    api.workspaces.unlock(workspace_id)
 
     subprocess.call(["mv", "backend.tf.commented", "backend.tf"])
     subprocess.call(["terraform", "init"])
