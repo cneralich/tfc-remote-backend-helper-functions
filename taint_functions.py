@@ -7,7 +7,7 @@ import json
 import subprocess
 
 # Method for tainting resources when workspace_id is passed
-def taint_state_ws_id(api, workspace_id, taint_list):
+def taint_state_by_ws_id(api, workspace_id, taint_list):
     current_version = api.state_versions.get_current(workspace_id)[
         'data']
     
@@ -55,7 +55,7 @@ def taint_state_ws_id(api, workspace_id, taint_list):
 
 
 # Method for tainting resources when workspace_name is passed
-def taint_state_ws_name(api, workspace_name, taint_list):
+def taint_state_by_ws_name(api, workspace_name, taint_list):
     workspace_id = api.workspaces.show(workspace_name=workspace_name)['data']['id']
     
     current_version = api.state_versions.get_current(workspace_id)[
