@@ -8,7 +8,6 @@ pip3 install terrasnek
 
 ### 2. Set Required Environment Variables and create your TFC Client
 ```
-# NEW ORG
 TFE_TOKEN = os.getenv("TFE_TOKEN", None)
 TFE_URL = os.getenv("TFE_URL", None)
 TFE_ORG = os.getenv("TFE_ORG", None)
@@ -25,3 +24,26 @@ Note:
 from taint_functions import *
 from import_functions import *
 ```
+
+### 4. Call Functions and Pass Required Arguments
+**IMPORT FUNCTIONS:**
+* import_to_state_by_ws_id
+  * **Description:** This function allows Users to pass a workspace_id, resource_name, and resource_id and will import that resource into their state in TFC/E
+  * **Example:** `import_to_state_by_ws_id(api, 'ws-abcdefgh12345678', 'aws_eip.example', 'eipalloc-xxxxxxxxxxx')`
+* import_to_state_by_ws_name
+  * **Description:** This function allows Users to pass a workspace_name, resource_name, and resource_id and will import that resource into their state in TFC/E
+  * **Example:** `import_to_state_by_ws_id(api, 'my-workspace', 'aws_eip.example', 'eipalloc-xxxxxxxxxxx')`
+* import_list_to_state_by_ws_id
+  * **Description:** This function allows Users to pass a workspace_id and a dictionary of resource_names/resource_ids and will import those resources into their state in TFC/E
+  * **Example:** `import_to_state_by_ws_id(api, 'ws-abcdefgh12345678', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
+* import_list_to_state_by_ws_name
+  * **Description:** This function allows Users to pass a workspace_name and a dictionary of resource_names/resource_ids and will import those resources into their state in TFC/E
+  * **Example:** `import_to_state_by_ws_id(api, 'my-workspace', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
+
+**TAINT FUNCTIONS:**
+* taint_state_ws_id
+  * **Description:** This function allows Users to pass a workspace_id a list of resources, and those resources will be tainted in that state file in TFC/E
+  * **Example:** `taint_state_ws_id(api, 'ws-abcdefgh12345678', ['aws_eip.example', 'aws_eip.example_two'])`
+* taint_state_ws_name
+  * **Description:** This function allows Users to pass a workspace_id a list of resources, and those resources will be tainted in that state file in TFC/E
+  * **Example:** `taint_state_ws_name(api, 'my-workspace', ['aws_eip.example', 'aws_eip.example_two'])`
