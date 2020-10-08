@@ -40,8 +40,8 @@ from import_functions import *
   * **Description:** This function allows Users to pass a workspace_name and a dictionary of resource_names/resource_ids and will import those resources into their state in TFC/E
   * **Example:** `import_list_to_state_by_ws_name(api, 'my-workspace', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
 * **NOTE:** 
- * Import commands will be executed locally, so any variables needed to perform the import operation will either need to be set as Env variables (ex. `export TF_VAR_myvariable=xxxxxxx`), passed as CLI arguments, or included in a terraform.tfvars file in the same directory
- * By default, the import functions expect the [remote_backend configuration](https://www.terraform.io/docs/backends/types/remote.html#example-configurations) to be contained in a separate file named `backend.tf`, but if Users have different file naming conventioins, they can simply update the default values used in [import_functions.py](import_functions.py)
+  * Import commands will be executed locally, so any variables needed to perform the import operation will either need to be set as Env variables (ex. `export TF_VAR_myvariable=xxxxxxx`), passed as CLI arguments, or included in a terraform.tfvars file in the same directory
+  * By default, the import functions expect the [remote_backend configuration](https://www.terraform.io/docs/backends/types/remote.html#example-configurations) to be contained in a separate file named `backend.tf`, but if Users have different file naming conventioins, they can simply update the default values used in [import_functions.py](import_functions.py)
 
 **TAINT FUNCTIONS:**
 * taint_state_by_ws_id
