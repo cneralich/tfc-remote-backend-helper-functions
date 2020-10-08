@@ -1,7 +1,7 @@
 # TFC Remote-backend Helper Functions
 
 ## STEPS:
-### 1. Install the Python Dependencies
+### 1. Install Python Dependencies
 ```
 pip3 install terrasnek
 ```
