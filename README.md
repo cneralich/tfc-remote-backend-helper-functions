@@ -20,4 +20,8 @@ Note:
 * The Token(s) used above must be either a Team or User Token and have the appropriate level of permissions to interact with state
 * The URL(s) used above must follow a format of `https://app.terraform.io`
 
-###
+### 3. Import Functions
+```
+from taint_functions import *
+from import_functions import *
+```
