@@ -32,13 +32,13 @@ from import_functions import *
   * **Example:** `import_to_state_by_ws_id(api, 'ws-abcdefgh12345678', 'aws_eip.example', 'eipalloc-xxxxxxxxxxx')`
 * import_to_state_by_ws_name
   * **Description:** This function allows Users to pass a workspace_name, resource_name, and resource_id and will import that resource into their state in TFC/E
-  * **Example:** `import_to_state_by_ws_id(api, 'my-workspace', 'aws_eip.example', 'eipalloc-xxxxxxxxxxx')`
+  * **Example:** `import_to_state_by_ws_name(api, 'my-workspace', 'aws_eip.example', 'eipalloc-xxxxxxxxxxx')`
 * import_list_to_state_by_ws_id
   * **Description:** This function allows Users to pass a workspace_id and a dictionary of resource_names/resource_ids and will import those resources into their state in TFC/E
   * **Example:** `import_to_state_by_ws_id(api, 'ws-abcdefgh12345678', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
 * import_list_to_state_by_ws_name
   * **Description:** This function allows Users to pass a workspace_name and a dictionary of resource_names/resource_ids and will import those resources into their state in TFC/E
-  * **Example:** `import_to_state_by_ws_id(api, 'my-workspace', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
+  * **Example:** `import_to_state_by_ws_name(api, 'my-workspace', {'aws_eip.example':'eipalloc-xxxxxxxxxxx', 'aws_eip.example_two': 'eipalloc-yyyyyyyyy'}`
 
 **TAINT FUNCTIONS:**
 * taint_state_ws_id
