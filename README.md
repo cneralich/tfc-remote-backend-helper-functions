@@ -3,7 +3,7 @@
 ## STEPS:
 ### 1. Install Python Dependencies
 ```
-pip3 install terrasnek
+pip3 install terrasnek==0.0.9
 ```
 
 ### 2. Set Required Environment Variables and create your TFC Client
